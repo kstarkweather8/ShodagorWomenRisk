@@ -6,7 +6,7 @@
 library(rethinking)
 
 # load data into R
-d1 <- read.csv("Dec15VarianceData.csv" , stringsAsFactors=FALSE )
+d1 <- read.csv("RiskData.csv" , stringsAsFactors=FALSE )
 d2 <- read.csv("income_data.csv" , stringsAsFactors=FALSE )
 
 # fix NA in Time to Market dummy
@@ -117,7 +117,6 @@ plot( precis(m_wifesellCV,pars=xpars) , labels=xlabels )
 
 
 # income CV figure
-# need to run model m_wifesellCV in wifesellCV_script.R first
 
 post <- extract.samples(m_wifesellCV)
 
