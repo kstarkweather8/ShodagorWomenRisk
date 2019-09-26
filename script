@@ -114,3 +114,24 @@ xpars <- c("b_distMEG_sell","b_timeMKT_sell","b_StillBF","b_AlloP","b_Father","b
 xlabels <- c("Distance to Meghna","Time to Market","Currently Breastfeeding","Number of Alloparents","Father Stays Home","Husband's Coeff of Var")
 plot( precis(m_wifesellCV,pars=xpars) , labels=xlabels )
 # mtext( "Posterior means and 89% compatibility intervals" )
+
+
+# income CV figure
+# need to run model m_wifesellCV in wifesellCV_script.R first
+
+post <- extract.samples(m_wifesellCV)
+
+cv_wife_sell <- exp( post$cv_mu + post$fem_cv + post$sell_cv )
+cv_wife_fish <- exp( post$cv_mu + post$fem_cv )
+cv_husb_fish <- exp( post$cv_mu )
+
+dens( cv_wife_sell , xlim=c(0.37,1.2) , ylim=c(0,8) , xlab="coefficient of variation" )
+dens( cv_wife_fish , add=TRUE )
+dens( cv_husb_fish , add=TRUE )
+text( 0.95 , 3 , "women selling" )
+text( 0.75 , 4.8 , "women fishing" )
+text( 0.67 , 6.5 , "men fishing" )
+
+# contrasts
+PI( cv_wife_sell - cv_wife_fish )
+PI( cv_wife_sell - cv_husb_fish )
