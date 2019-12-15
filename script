@@ -117,19 +117,19 @@ plot( precis(m_wifesellCV,pars=xpars) , labels=xlabels )
 
 
 # income CV figure
+# need to run model m_wifesellCV in wifesellCV_script.R first
 
 post <- extract.samples(m_wifesellCV)
 
 cv_wife_sell <- exp( post$cv_mu + post$fem_cv + post$sell_cv )
 cv_wife_fish <- exp( post$cv_mu + post$fem_cv )
 cv_husb_fish <- exp( post$cv_mu )
+cv_fish <- 0.5*cv_wife_fish + 0.5*cv_husb_fish
 
 dens( cv_wife_sell , xlim=c(0.37,1.2) , ylim=c(0,8) , xlab="coefficient of variation" )
-dens( cv_wife_fish , add=TRUE )
-dens( cv_husb_fish , add=TRUE )
-text( 0.95 , 3 , "women selling" )
-text( 0.75 , 4.8 , "women fishing" )
-text( 0.67 , 6.5 , "men fishing" )
+dens( cv_fish , add=TRUE )
+text( 0.9 , 3 , "selling" )
+text( 0.72 , 4.8 , "fishing" )
 
 # contrasts
 PI( cv_wife_sell - cv_wife_fish )
